@@ -14,7 +14,7 @@ from inflammation.models import daily_mean, daily_max, daily_min, patient_normal
     ]     
 )
 
-def test_daily_mean(test, expected):
+def test_daily_mean(test: list[list[int]], expected: list[int]):
     """Test mean function works for array of zeroes and positive integers."""
     npt.assert_array_equal(daily_mean(np.array(test)), np.array(expected))
 
@@ -26,7 +26,7 @@ def test_daily_mean(test, expected):
     ]     
 )
 
-def test_daily_max(test, expected):
+def test_daily_max(test: list[list[int]], expected: list[int]):
     """Test mean function works for array of zeroes and positive integers."""
     npt.assert_array_equal(daily_max(np.array(test)), np.array(expected))
 
@@ -38,16 +38,18 @@ def test_daily_max(test, expected):
     ]     
 )
 
-def test_daily_min(test, expected):
+def test_daily_min(test: list[list[int]], expected: list[int]):
     """Test mean function works for array of zeroes and positive integers."""
     npt.assert_array_equal(daily_min(np.array(test)), np.array(expected))
 
 @pytest.mark.parametrize(
     "test, expected",
     [
-        ([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]])
+        ([[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0], [0, 0, 0]]),
+        ([[1, 1, 1], [1, 1, 1], [1, 1, 1]], [[1, 1, 1], [1, 1, 1], [1, 1, 1]]),
+        ([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [[0.33, 0.67, 1], [0.67, 0.83, 1], [0.78, 0.89, 1]]),
     ])
-def test_patient_normalise(test, expected):
+def test_patient_normalise(test: list[list[int]], expected: list[list[int]] | list[list]):
     """Test normalisation works for arrays of one and positive integers.
        Test with a relative and absolute tolerance of 0.01."""
 
