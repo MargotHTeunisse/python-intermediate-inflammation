@@ -4,18 +4,31 @@
 import glob
 import os
 import numpy as np
+from abc import ABC, abstractmethod
 
 from inflammation import models, views
 
-class CSVDataSource():
+class DataSource(ABC):
     def __init__(self, data_dir:str):
         self.data_dir = data_dir
 
+    @abstractmethod
+    def load_inflammation_data(self):
+        pass
+
+class CSVDataSource(DataSource):
     def load_inflammation_data(self):
         data_file_paths = glob.glob(os.path.join(self.data_dir, 'inflammation*.csv'))
         if len(data_file_paths) == 0:
             raise ValueError(f"No inflammation data CSV files found in path {self.data_dir}")
         return map(models.load_csv, data_file_paths)
+    
+class JSONDataSource(DataSource):
+    def load_inflammation_data(self):
+        data_file_paths = glob.glob(os.path.join(self.data_dir, 'inflammation*.csv'))
+        if len(data_file_paths) == 0:
+            raise ValueError(f"No inflammation data CSV files found in path {self.data_dir}")
+        return map(models.load_json, data_file_paths)
 
 
 def analyse_data(data_source:CSVDataSource):
