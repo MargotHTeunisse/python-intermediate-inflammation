@@ -4,6 +4,7 @@ import os
 import numpy as np
 import numpy.testing as npt
 import pytest
+from inflammation.models import standard_deviation
 
 from inflammation.models import daily_mean
 
@@ -38,6 +39,5 @@ def test_daily_mean_integers():
     ([0.0, 2.0], 1.0)
 ])
 def test_daily_standard_deviation(data, expected_standard_deviation):
-    from inflammation.models import s_dev
-    result_data = s_dev(data)
+    result_data = standard_deviation(data)
     npt.assert_approx_equal(result_data, expected_standard_deviation)
